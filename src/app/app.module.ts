@@ -15,6 +15,8 @@ import { IntroPageModule } from '../pages/intro/intro.module';
 
 import { MovieProvider } from '../providers/movie/movie';
 import { HttpClientModule } from '../../node_modules/@angular/common/http';
+import { ConfiguracaoPageModule } from '../pages/configuracao/configuracao.module';
+import { PerfilPageModule } from '../pages/perfil/perfil.module';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { HttpClientModule } from '../../node_modules/@angular/common/http';
     IonicModule.forRoot(MyApp),
     FeedPageModule,
     IntroPageModule,
-    HttpClientModule
+    HttpClientModule,
+    ConfiguracaoPageModule,
+
   ],
   bootstrap: [IonicApp],
   entryComponents: [
