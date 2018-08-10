@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { MovieProvider } from '../../providers/movie/movie';
 
 /**
@@ -19,22 +19,35 @@ import { MovieProvider } from '../../providers/movie/movie';
 })
 export class FeedPage {
   public listaFilmes = new Array<any>();
+  public loader;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private movieProvider: MovieProvider
+    private movieProvider: MovieProvider,
+    public loadingCtrl: LoadingController
   ) {
   }
 
-  ionViewDidLoad() {
+  abrirCarregando() {
+    this.loader = this.loadingCtrl.create({
+      content: "Carregando"
+    });
+    this.loader.present();
+  }
+
+  fecharCarregando(){
+    this.loader.dismiss();
+  }
+
+  ionViewDidEnter() {
+    this.abrirCarregando();
     this.movieProvider.getLatestMovies().subscribe(
       data => {
         const response = (data as any);
         this.listaFilmes = response.results;
-        console.log(this.listaFilmes);
-        /*  const retorno = JSON.parse(response._body); */
-        /*        console.log(retorno); */
+        this.fecharCarregando();
       }, error => {
+        this.fecharCarregando();
         console.log(error);
       }
     )
