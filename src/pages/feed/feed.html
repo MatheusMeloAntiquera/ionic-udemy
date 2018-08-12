@@ -14,19 +14,23 @@
 
 
 <ion-content padding>
-  <ion-card *ngFor="let filme of listaFilmes">  
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  
+  <ion-card *ngFor="let filme of listaFilmes">
     <ion-item>
- 
+
       <h2 class="feed-title">{{filme.original_title}} </h2>
       <p>{{filme.release_date}}</p>
     </ion-item>
-  
+
     <img [src]="'https://image.tmdb.org/t/p/w500/' + filme.backdrop_path">
-  
+
     <ion-card-content>
-      <p> {{filme.overview}}  </p>
+      <p> {{filme.overview}} </p>
     </ion-card-content>
-  
+
     <ion-row>
       <ion-col>
         <button ion-button icon-start clear small>
@@ -46,6 +50,6 @@
         </ion-note>
       </ion-col>
     </ion-row>
-  
+
   </ion-card>
 </ion-content>

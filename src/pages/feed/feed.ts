@@ -20,6 +20,8 @@ import { MovieProvider } from '../../providers/movie/movie';
 export class FeedPage {
   public listaFilmes = new Array<any>();
   public loader;
+  public refresher;
+  public isRefreshing: boolean = false;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -35,22 +37,36 @@ export class FeedPage {
     this.loader.present();
   }
 
-  fecharCarregando(){
+  fecharCarregando() {
     this.loader.dismiss();
   }
 
   ionViewDidEnter() {
+    this.carregarFilmes();
+  }
+
+  carregarFilmes() {
     this.abrirCarregando();
     this.movieProvider.getLatestMovies().subscribe(
       data => {
         const response = (data as any);
         this.listaFilmes = response.results;
-        this.fecharCarregando();
       }, error => {
-        this.fecharCarregando();
         console.log(error);
+      }, () => {
+        this.fecharCarregando();
+        if (this.isRefreshing) {
+          this.refresher.complete();
+          this.isRefreshing = false;
+        }
       }
     )
+  }
+
+  doRefresh(refresher) {
+    this.refresher = refresher;
+    this.isRefreshing = true;
+    this.carregarFilmes();
   }
 
 }
