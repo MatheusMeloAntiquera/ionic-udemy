@@ -18,6 +18,7 @@ import { HttpClientModule } from '../../node_modules/@angular/common/http';
 import { ConfiguracaoPageModule } from '../pages/configuracao/configuracao.module';
 
 import { DetalhesPageModule } from '../pages/detalhes/detalhes.module';
+import { CameraPageModule } from '../pages/camera/camera.module';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { DetalhesPageModule } from '../pages/detalhes/detalhes.module';
     IntroPageModule,
     HttpClientModule,
     ConfiguracaoPageModule,
-    DetalhesPageModule
+    DetalhesPageModule,
+    CameraPageModule
 
   ],
   bootstrap: [IonicApp],
@@ -49,7 +51,7 @@ import { DetalhesPageModule } from '../pages/detalhes/detalhes.module';
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    MovieProvider
+    MovieProvider,
   ]
 })
 export class AppModule { }
