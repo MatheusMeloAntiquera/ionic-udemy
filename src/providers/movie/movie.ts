@@ -13,8 +13,8 @@ export class MovieProvider {
   constructor(public http: HttpClient) {
   }
 
-  getLatestMovies() {
-    return this.http.get(this.baseApiPath + "movie/popular?api_key=" + this.getApiKey());
+  getLatestMovies(page = 1) {
+    return this.http.get(this.baseApiPath + "movie/popular?page="+ page + "&api_key=" + this.getApiKey());
   }
 
   private getApiKey() {

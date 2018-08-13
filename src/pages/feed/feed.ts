@@ -23,6 +23,8 @@ export class FeedPage {
   public loader;
   public refresher;
   public isRefreshing: boolean = false;
+  public infiniteScroll: any;
+  public proximaPagina = 1;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -46,12 +48,19 @@ export class FeedPage {
     this.carregarFilmes();
   }
 
-  carregarFilmes() {
+  carregarFilmes(novaPagina: boolean = false) {
     this.abrirCarregando();
-    this.movieProvider.getLatestMovies().subscribe(
+    
+    this.movieProvider.getLatestMovies(this.proximaPagina).subscribe(
       data => {
         const response = (data as any);
-        this.listaFilmes = response.results;
+        //Está utilizando o infiniteScroll então gera uma nova página
+        if (novaPagina) {
+          this.listaFilmes = this.listaFilmes.concat(response.results);
+          this.infiniteScroll.complete();
+        } else {
+          this.listaFilmes = response.results;
+        }
       }, error => {
         console.log(error);
       }, () => {
@@ -72,6 +81,13 @@ export class FeedPage {
 
   abrirDetalhes(idFilme) {
     this.navCtrl.push(DetalhesPage, { id: idFilme });
+  }
+
+  doInfinite(infiniteScroll) {
+    this.infiniteScroll = infiniteScroll;
+    this.proximaPagina++;
+    this.carregarFilmes(true);
+    infiniteScroll.complete();
   }
 
 }
