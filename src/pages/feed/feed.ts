@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { MovieProvider } from '../../providers/movie/movie';
+import { DetalhesPage } from '../detalhes/detalhes';
 
 /**
  * Generated class for the FeedPage page.
@@ -67,6 +68,10 @@ export class FeedPage {
     this.refresher = refresher;
     this.isRefreshing = true;
     this.carregarFilmes();
+  }
+
+  abrirDetalhes(idFilme) {
+    this.navCtrl.push(DetalhesPage, { id: idFilme });
   }
 
 }

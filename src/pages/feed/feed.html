@@ -17,7 +17,7 @@
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  
+
   <ion-card *ngFor="let filme of listaFilmes">
     <ion-item>
 
@@ -47,9 +47,10 @@
       <ion-col center text-center>
         <ion-note>
           11h ago
-        </ion-note>
+        </ion-note> 
       </ion-col>
     </ion-row>
+    <button ion-button block (click)="abrirDetalhes(filme.id)">Detalhes</button>
 
   </ion-card>
 </ion-content>
